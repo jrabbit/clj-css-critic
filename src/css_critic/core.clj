@@ -2,7 +2,7 @@
   (:use css-critic.css))
 
 ; Maybe use webkit to render to image?
-; Find CSS processing lib or do it VERY BASICALLY
+
 
 (def sample "body {
              color: black;
@@ -16,11 +16,26 @@
 
 (def rules (get-in  (first (parse-css sample)) (list :content :declarations)))
 
+;; Tools for Evolution to steal.
+
+(defn getfontsizes [rules]
+  "Vector of fontsizes."
+  (map #(get-in % (list :content :value :content)) 
+       (filter #(if (= "font-size" (get-in % (list :content :property :content))) 
+                  true) rules)))
+
+
+
+;;Font sizes
+;;Colors defined
+
+;;Actually used CSS v. Defined?
+
 ;;map down a filter checking get-in :content... has 
 
-;;< gfredericks> &(let [m {:foo 12 :bar 14 :baz 14}] (filter #(= 14 (m %)) (keys m)))
-;; 70.957  < gfredericks> another thing you might find useful: ##(let [m {:foo 12 :bar 14 :baz 14}] (group-by m (keys m)))
-;;70.937  < gfredericks> you pass it a key and it gives you a value: ##({:foo 'bar} :foo)
+;;<gfredericks> &(let [m {:foo 12 :bar 14 :baz 14}] (filter #(= 14 (m %)) (keys m)))
+;;<gfredericks> another thing you might find useful: ##(let [m {:foo 12 :bar 14 :baz 14}] (group-by m (keys m)))
+;;<gfredericks> you pass it a key and it gives you a value: ##({:foo 'bar} :foo)
 
 ;;http://clojuredocs.org/clojure_core/clojure.java.shell/sh
 
