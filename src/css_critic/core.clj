@@ -1,5 +1,6 @@
 (ns css-critic.core
-  (:use css-critic.css))
+  (:use css-critic.css)
+  (:use com.evocomputing.colors))
 
 ; Maybe use webkit to render to image?
 
@@ -18,10 +19,10 @@
 
 ;; Tools for Evolution to steal.
 
-(defn getfontsizes [rules]
+(defn getvalue [rules item]
   "Vector of fontsizes."
   (map #(get-in % (list :content :value :content)) 
-       (filter #(if (= "font-size" (get-in % (list :content :property :content))) 
+       (filter #(if (= item (get-in % (list :content :property :content))) 
                   true) rules)))
 
 
@@ -43,6 +44,7 @@
 ;; Color utilities
 ;; To average an area dump its contents into an array then process the array into lists of r,g ;;and b values. http://processing.org/reference/loadPixels_.html
 
+(create-color (str "#" (first (getvalue rules "background"))))
 
 (defn avgonecolor [r] 
   (int (/ (apply + r) (count r))))
@@ -53,4 +55,9 @@
   ((avgonecolor red) (avgonecolor blue) (avgonecolor green))
   )
 
-;; See how far apart colors are on a hue?
+
+(defn distance-hsl [color1 color2]
+  "See how far apart colors are on a hue"
+  (let [hue1 (first (get color1 :hsl)) hue2 (first (get color2 :hsl))]
+    ;; hue 0, 360
+    ))
