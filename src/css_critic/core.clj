@@ -25,7 +25,8 @@
        (filter #(if (= item (get-in % (list :content :property :content))) 
                   true) rules)))
 
-
+;; def size of image to get random pixel data?
+;;random range function useful. 
 
 ;;Font sizes
 ;;Colors defined
@@ -51,10 +52,15 @@
 
 (defn avgcolor 
   "Take three lists of RGB triads and give an average."
-  [red blue green]
+  [[red blue green]]
   ((avgonecolor red) (avgonecolor blue) (avgonecolor green))
   )
 
+(defn distance_hue [a b]
+(min (mod (- a b) 360) (mod (- b a) 360
+)))
+
+;; avgcolor map to @results then to hsl
 
 (defn distance-hsl [color1 color2]
   "See how far apart colors are on a hue"

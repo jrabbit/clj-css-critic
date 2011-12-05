@@ -6,4 +6,6 @@
                  [org.clojars.wilkes/gaka "0.2.2"]
                  [fnparse "2.2.7"]
                  [com.evocomputing/colors "1.0.0-SNAPSHOT"]
+                 [org.clojars.automata/rosado.processing "1.1.0"]
+
                  ])
