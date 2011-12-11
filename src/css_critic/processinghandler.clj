@@ -1,4 +1,4 @@
-(ns processingtest2
+(ns css-critic.processinghandler
   (:use [rosado.processing]
         [rosado.processing.applet]
         [com.evocomputing.colors :exclude [saturation hue red green blue alpha color]]))
@@ -9,6 +9,10 @@
 ;;  ([xi yi]
 ;;    (for [x (range xi), y (range yi)]
 ;;                [x y]))
+
+
+;; todo: remove thread/sleep
+;; todo: run once.
 
 (def img (atom nil))
 (def pxs (atom nil))
@@ -22,15 +26,6 @@
 (defn getpx-hue [[x y]]
   (let [px (get-pixel x y)]
     (swap! results concat (list (vector (red px) (green px) (blue px))))))
-
-
-(defn doscience [img-new x1 y1 x2 y2]
-  (reset! img img-new) 
-  (reset! pxs [x1 y1 x2 y2])
-  (run example2)
-  (Thread/sleep 1000)
-  (stop example2)
-  )
 
 (defn draw
   []
@@ -46,7 +41,16 @@
 (defapplet example2 :title "An example."
            :setup setup :draw draw :size [2000 2000])
 
+(defn doscience [img-new x1 y1 x2 y2]
+  (reset! results nil)
+  (reset! img img-new) 
+  (reset! pxs [x1 y1 x2 y2])
+  (run example2)
+  (Thread/sleep 1000)
+  (stop example2)
+  (list @results)
+  )
+
 
 (defn tests []
-  (reset! results nil)
   (doscience "/Users/jacklaxson/Downloads/Ez0Y1.jpg" 0 0 10 10))

@@ -1,6 +1,7 @@
 (ns css-critic.core
   (:use css-critic.css)
-  (:use com.evocomputing.colors))
+  (:use com.evocomputing.colors)
+  (:use css-critic.processinghandler))
 
 ; Maybe use webkit to render to image?
 
