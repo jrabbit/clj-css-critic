@@ -1,0 +1,5 @@
+reddit : 75
+code : 30
+cutycapt : 40
+bash : 20
+fileslap : 85
